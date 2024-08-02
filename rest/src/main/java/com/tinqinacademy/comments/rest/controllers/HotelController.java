@@ -1,8 +1,8 @@
 package com.tinqinacademy.comments.rest.controllers;
 
 import com.tinqinacademy.comments.api.contracts.HotelService;
-import com.tinqinacademy.comments.api.operations.createcomment.input.AddCommentInput;
-import com.tinqinacademy.comments.api.operations.createcomment.output.AddCommentOutput;
+import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
+import com.tinqinacademy.comments.api.operations.addcomment.output.AddCommentOutput;
 import com.tinqinacademy.comments.api.operations.getcomments.input.GetCommentsInput;
 import com.tinqinacademy.comments.api.operations.getcomments.output.GetCommentsOutput;
 import com.tinqinacademy.comments.api.operations.updatecomment.input.UpdateCommentInput;
