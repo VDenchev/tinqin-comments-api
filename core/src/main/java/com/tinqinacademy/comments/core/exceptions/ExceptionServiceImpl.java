@@ -1,4 +1,4 @@
-package com.tinqinacademy.comments.exceptions;
+package com.tinqinacademy.comments.core.exceptions;
 
 import com.tinqinacademy.comments.api.contracts.ExceptionService;
 import com.tinqinacademy.comments.api.models.exceptions.output.ErrorOutput;
