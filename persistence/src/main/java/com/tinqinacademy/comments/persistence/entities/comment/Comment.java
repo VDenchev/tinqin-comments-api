@@ -35,9 +35,6 @@ public class Comment extends BaseEntity {
   @Column(name = "last_name", nullable = false, length = 40)
   private String lastName;
 
-  @Column(name = "sender_id", nullable = false)
-  private UUID senderId;
-
   @Column(name = "room_id", nullable = false)
   private UUID roomId;
 

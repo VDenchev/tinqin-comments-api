@@ -1,4 +1,4 @@
-package com.tinqinacademy.comments.api.operations.createcomment.output;
+package com.tinqinacademy.comments.api.operations.addcomment.output;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.tinqinacademy.comments.api.base.OperationOutput;

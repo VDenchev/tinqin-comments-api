@@ -1,7 +1,7 @@
 package com.tinqinacademy.comments.rest.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tinqinacademy.comments.api.operations.createcomment.input.AddCommentInput;
+import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
 import com.tinqinacademy.comments.api.operations.updatecomment.input.UpdateCommentInput;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
