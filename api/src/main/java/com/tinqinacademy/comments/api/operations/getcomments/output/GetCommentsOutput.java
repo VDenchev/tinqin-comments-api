@@ -1,5 +1,6 @@
 package com.tinqinacademy.comments.api.operations.getcomments.output;
 
+import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.models.output.CommentDetailsOutput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-public class GetCommentsOutput {
+public class GetCommentsOutput implements OperationOutput {
 
   private List<CommentDetailsOutput> comments;
 }

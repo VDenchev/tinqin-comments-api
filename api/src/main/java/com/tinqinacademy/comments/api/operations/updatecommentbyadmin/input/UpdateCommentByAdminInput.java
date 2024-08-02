@@ -1,6 +1,7 @@
 package com.tinqinacademy.comments.api.operations.updatecommentbyadmin.input;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tinqinacademy.comments.api.base.OperationInput;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,7 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class UpdateCommentByAdminInput {
+public class UpdateCommentByAdminInput implements OperationInput {
 
   @JsonIgnore
   private String commentId;
