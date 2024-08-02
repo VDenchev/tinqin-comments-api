@@ -1,6 +1,7 @@
 package com.tinqinacademy.comments.api.operations.getcomments.input;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.tinqinacademy.comments.api.base.OperationInput;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class GetCommentsInput {
+public class GetCommentsInput implements OperationInput {
 
   @Schema(example = "Room UUID")
   @JsonValue
