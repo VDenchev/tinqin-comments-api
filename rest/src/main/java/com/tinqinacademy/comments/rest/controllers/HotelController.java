@@ -1,9 +1,12 @@
 package com.tinqinacademy.comments.rest.controllers;
 
+import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.contracts.HotelService;
 import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
+import com.tinqinacademy.comments.api.operations.addcomment.operation.AddCommentOperation;
 import com.tinqinacademy.comments.api.operations.addcomment.output.AddCommentOutput;
 import com.tinqinacademy.comments.api.operations.getcomments.input.GetCommentsInput;
+import com.tinqinacademy.comments.api.operations.getcomments.operation.GetCommentsOperation;
 import com.tinqinacademy.comments.api.operations.getcomments.output.GetCommentsOutput;
 import com.tinqinacademy.comments.api.operations.updatecomment.input.UpdateCommentInput;
 import com.tinqinacademy.comments.api.operations.updatecomment.output.UpdateCommentOutput;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.View;
 
 import static com.tinqinacademy.comments.api.RestApiRoutes.CREATE_COMMENT;
 import static com.tinqinacademy.comments.api.RestApiRoutes.GET_COMMENTS;
@@ -30,6 +34,8 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT;
 public class HotelController {
 
   private final HotelService hotelService;
+  private final AddCommentOperation addCommentOperation;
+  private final View error;
 
   @Operation(summary = "Retrieves all comments for the provided room")
   @ApiResponses(value = {
@@ -66,14 +72,16 @@ public class HotelController {
       )
   })
   @PostMapping(CREATE_COMMENT)
-  public ResponseEntity<AddCommentOutput> addComment(
+  public ResponseEntity<OperationOutput> addComment(
       @PathVariable String roomId,
-      @RequestBody @Valid AddCommentInput input
+      @RequestBody AddCommentInput input
   ) {
     input.setRoomId(roomId);
-    AddCommentOutput output = hotelService.addComment(input);
-
-    return new ResponseEntity<>(output, HttpStatus.CREATED);
+    return addCommentOperation.process(input)
+        .fold(
+            errorOutput -> new ResponseEntity<>(errorOutput, errorOutput.getStatusCode()),
+            operationOutput -> new ResponseEntity<>(operationOutput, HttpStatus.CREATED)
+        );
   }
 
 
