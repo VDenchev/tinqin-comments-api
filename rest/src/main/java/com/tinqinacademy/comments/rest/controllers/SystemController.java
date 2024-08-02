@@ -1,7 +1,9 @@
 package com.tinqinacademy.comments.rest.controllers;
 
+import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.contracts.SystemService;
 import com.tinqinacademy.comments.api.operations.deletecomment.input.DeleteCommentInput;
+import com.tinqinacademy.comments.api.operations.deletecomment.operation.DeleteCommentOperation;
 import com.tinqinacademy.comments.api.operations.deletecomment.output.DeleteCommentOutput;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.input.UpdateCommentByAdminInput;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.output.UpdateCommentByAdminOutput;
@@ -26,6 +28,7 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT_BY_ADM
 public class SystemController {
 
   private final SystemService systemService;
+  private final DeleteCommentOperation deleteCommentOperation;
 
   @Operation(summary = "Admin can edit any comment for a certain room")
   @ApiResponses(value = {
@@ -82,11 +85,13 @@ public class SystemController {
       )
   })
   @DeleteMapping(DELETE_COMMENT)
-  public ResponseEntity<DeleteCommentOutput> deleteComment(
+  public ResponseEntity<OperationOutput> deleteComment(
       @PathVariable(name = "commentId") DeleteCommentInput input
   ) {
-    DeleteCommentOutput output = systemService.deleteComment(input);
-
-    return new ResponseEntity<>(output, HttpStatus.NO_CONTENT);
+    return deleteCommentOperation.process(input)
+        .fold(
+            errorOutput -> new ResponseEntity<>(errorOutput, errorOutput.getStatusCode()),
+            operationOutput -> new ResponseEntity<>(operationOutput, HttpStatus.OK)
+        );
   }
 }

@@ -25,7 +25,10 @@ public abstract class BaseOperationProcessor {
   protected final ConversionService conversionService;
   protected final Validator validator;
 
-  protected API.Match.Case<? extends Throwable, ErrorOutput> customStatusCase(Throwable t, Class<? extends Throwable> clazz, HttpStatusCode statusCode) {
+  protected API.Match.Case<? extends Throwable, ErrorOutput> customStatusCase(
+      Throwable t, Class<? extends Throwable> exceptionClass,
+      HttpStatusCode statusCode
+  ) {
     ErrorOutput output = ErrorOutput.builder()
         .statusCode(statusCode)
         .errors(List.of(Error.builder()
@@ -33,7 +36,7 @@ public abstract class BaseOperationProcessor {
             .build()
         ))
         .build();
-    return createCase(clazz, output);
+    return createCase(exceptionClass, output);
   }
 
   protected API.Match.Case<? extends Throwable, ErrorOutput> defaultCase(Throwable t) {

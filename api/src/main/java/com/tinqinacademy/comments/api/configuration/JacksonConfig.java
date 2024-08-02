@@ -1,4 +1,4 @@
-package com.tinqinacademy.comments.rest.configuration;
+package com.tinqinacademy.comments.api.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -26,12 +26,14 @@ public class JacksonConfig {
 
     JavaTimeModule javaTimeModule = new JavaTimeModule();
 
-    configureDateTimeSerialization(javaTimeModule);
-    configureDateSerialization(javaTimeModule);
+//    configureDateTimeSerialization(javaTimeModule);
+//    configureDateSerialization(javaTimeModule);
     mapper.registerModule(javaTimeModule);
 
-    mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+    mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     mapper.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
 
     return mapper;

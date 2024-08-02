@@ -36,7 +36,7 @@ public class AddCommentInput implements OperationInput {
   private String lastName;
 
   @NotBlank
-  @Size(max = 10_000)
+  @Size(max = 1_000)
   @Schema(example = "Veri git room and hotel, I would recumend it to mai frends and family.")
   private String content;
 }
