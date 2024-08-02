@@ -1,4 +1,4 @@
-package com.tinqinacademy.comments.services;
+package com.tinqinacademy.comments.core.services;
 
 import com.tinqinacademy.comments.api.contracts.HotelService;
 import com.tinqinacademy.comments.api.models.output.CommentDetailsOutput;
@@ -19,6 +19,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class HotelServiceImpl implements HotelService {
+
 
   @Override
   public GetCommentsOutput getAllCommentsByRoom(GetCommentsInput input) {

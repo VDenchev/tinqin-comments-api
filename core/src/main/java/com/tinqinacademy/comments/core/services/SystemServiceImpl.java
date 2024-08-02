@@ -1,4 +1,4 @@
-package com.tinqinacademy.comments.services;
+package com.tinqinacademy.comments.core.services;
 
 import com.tinqinacademy.comments.api.contracts.SystemService;
 import com.tinqinacademy.comments.api.models.output.CommentOutput;
