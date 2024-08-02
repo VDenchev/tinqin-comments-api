@@ -2,17 +2,20 @@ package com.tinqinacademy.comments.rest.controllers;
 
 import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.contracts.HotelService;
+import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
 import com.tinqinacademy.comments.api.operations.addcomment.operation.AddCommentOperation;
 import com.tinqinacademy.comments.api.operations.addcomment.output.AddCommentOutput;
 import com.tinqinacademy.comments.api.operations.getcomments.input.GetCommentsInput;
-import com.tinqinacademy.comments.api.operations.getcomments.operation.GetCommentsOperation;
 import com.tinqinacademy.comments.api.operations.getcomments.output.GetCommentsOutput;
 import com.tinqinacademy.comments.api.operations.updatecomment.input.UpdateCommentInput;
+import com.tinqinacademy.comments.api.operations.updatecomment.operation.UpdateCommentOperation;
 import com.tinqinacademy.comments.api.operations.updatecomment.output.UpdateCommentOutput;
+import com.tinqinacademy.comments.rest.base.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.vavr.control.Either;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.View;
 
 import static com.tinqinacademy.comments.api.RestApiRoutes.CREATE_COMMENT;
 import static com.tinqinacademy.comments.api.RestApiRoutes.GET_COMMENTS;
@@ -31,11 +33,11 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT;
 
 @RestController
 @RequiredArgsConstructor
-public class HotelController {
+public class HotelController extends BaseController {
 
   private final HotelService hotelService;
   private final AddCommentOperation addCommentOperation;
-  private final View error;
+  private final UpdateCommentOperation updateCommentOperation;
 
   @Operation(summary = "Retrieves all comments for the provided room")
   @ApiResponses(value = {
@@ -77,11 +79,8 @@ public class HotelController {
       @RequestBody AddCommentInput input
   ) {
     input.setRoomId(roomId);
-    return addCommentOperation.process(input)
-        .fold(
-            errorOutput -> new ResponseEntity<>(errorOutput, errorOutput.getStatusCode()),
-            operationOutput -> new ResponseEntity<>(operationOutput, HttpStatus.CREATED)
-        );
+    Either<ErrorOutput, AddCommentOutput> output = addCommentOperation.process(input);
+    return createResponse(output, HttpStatus.CREATED);
   }
 
 
@@ -109,15 +108,15 @@ public class HotelController {
       )
   })
   @PatchMapping(UPDATE_COMMENT)
-  public ResponseEntity<UpdateCommentOutput> updateComment(
+  public ResponseEntity<OperationOutput> updateComment(
       @PathVariable String commentId,
-      @RequestBody @Valid UpdateCommentInput input
+      @RequestBody UpdateCommentInput input
   ) {
     input = input.toBuilder()
         .commentId(commentId)
         .build();
-    UpdateCommentOutput output = hotelService.updateComment(input);
+    Either<ErrorOutput, UpdateCommentOutput> output = updateCommentOperation.process(input);
 
-    return new ResponseEntity<>(output, HttpStatus.OK);
+    return createResponse(output, HttpStatus.OK);
   }
 }
