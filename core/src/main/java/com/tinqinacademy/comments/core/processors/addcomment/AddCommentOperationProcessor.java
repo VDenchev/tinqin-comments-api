@@ -10,7 +10,6 @@ import com.tinqinacademy.comments.persistence.entities.comment.Comment;
 import com.tinqinacademy.comments.persistence.repositories.CommentRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionException;
@@ -27,7 +26,7 @@ import static io.vavr.API.Match;
 @Slf4j
 public class AddCommentOperationProcessor extends BaseOperationProcessor implements AddCommentOperation {
 
-  private CommentRepository commentRepository;
+  private final CommentRepository commentRepository;
 
   public AddCommentOperationProcessor(
       ConversionService conversionService, Validator validator,
@@ -42,7 +41,7 @@ public class AddCommentOperationProcessor extends BaseOperationProcessor impleme
     return validateInput(input)
         .flatMap((validInput) ->
             Try.of(() -> {
-                  log.info("Start addComment input: {}", input);
+                  log.info("Start addComment input: {}", validInput);
 
                   Comment comment = convertInputToComment(validInput);
 
@@ -61,13 +60,12 @@ public class AddCommentOperationProcessor extends BaseOperationProcessor impleme
         );
   }
 
-  private static AddCommentOutput createOutput(Comment savedComment) {
-    AddCommentOutput output = AddCommentOutput.builder()
+  private AddCommentOutput createOutput(Comment savedComment) {
+    return AddCommentOutput.builder()
         .output(CommentOutput.builder()
             .id(savedComment.getId().toString())
             .build())
         .build();
-    return output;
   }
 
   private Comment convertInputToComment(AddCommentInput validInput) {

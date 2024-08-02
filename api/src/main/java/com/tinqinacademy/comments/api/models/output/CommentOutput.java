@@ -16,6 +16,6 @@ import lombok.ToString;
 @ToString
 public class CommentOutput {
 
-  @Schema(example = "Random Comment UUID")
+  @Schema(example = "Id of the added comment")
   private String id;
 }

@@ -1,6 +1,5 @@
 package com.tinqinacademy.comments.api.operations.deletecomment.input;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.tinqinacademy.comments.api.base.OperationInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UUID;
 
 @Getter
 @Setter
@@ -17,6 +17,6 @@ import lombok.ToString;
 @ToString
 public class DeleteCommentInput implements OperationInput {
 
-  @JsonValue
+  @UUID(message = "Comment id has to be a valid UUID string")
   private String commentId;
 }
