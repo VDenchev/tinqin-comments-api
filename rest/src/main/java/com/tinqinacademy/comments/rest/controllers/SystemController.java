@@ -1,16 +1,17 @@
 package com.tinqinacademy.comments.rest.controllers;
 
 import com.tinqinacademy.comments.api.base.OperationOutput;
-import com.tinqinacademy.comments.api.contracts.SystemService;
+import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.operations.deletecomment.input.DeleteCommentInput;
 import com.tinqinacademy.comments.api.operations.deletecomment.operation.DeleteCommentOperation;
-import com.tinqinacademy.comments.api.operations.deletecomment.output.DeleteCommentOutput;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.input.UpdateCommentByAdminInput;
+import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.operation.UpdateCommentByAdminOperation;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.output.UpdateCommentByAdminOutput;
+import com.tinqinacademy.comments.rest.base.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT_BY_ADM
 
 @RestController
 @RequiredArgsConstructor
-public class SystemController {
+public class SystemController extends BaseController {
 
-  private final SystemService systemService;
   private final DeleteCommentOperation deleteCommentOperation;
+  private final UpdateCommentByAdminOperation updateCommentByAdminOperation;
 
   @Operation(summary = "Admin can edit any comment for a certain room")
   @ApiResponses(value = {
@@ -54,14 +55,14 @@ public class SystemController {
       )
   })
   @PutMapping(UPDATE_COMMENT_BY_ADMIN)
-  public ResponseEntity<UpdateCommentByAdminOutput> updateComment(
+  public ResponseEntity<OperationOutput> updateComment(
       @PathVariable String commentId,
-      @RequestBody @Valid UpdateCommentByAdminInput input
+      @RequestBody UpdateCommentByAdminInput input
   ) {
     input.setCommentId(commentId);
-    UpdateCommentByAdminOutput output = systemService.updateCommentByAdmin(input);
+    Either<ErrorOutput, UpdateCommentByAdminOutput> output = updateCommentByAdminOperation.process(input);
 
-    return new ResponseEntity<>(output, HttpStatus.OK);
+    return createResponse(output, HttpStatus.OK);
   }
 
 
