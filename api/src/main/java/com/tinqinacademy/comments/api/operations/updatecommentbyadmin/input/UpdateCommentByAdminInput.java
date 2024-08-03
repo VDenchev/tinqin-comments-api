@@ -28,6 +28,10 @@ public class UpdateCommentByAdminInput implements OperationInput {
   @NotBlank(message = "Room number must not be blank")
   private String roomNumber;
 
+  @NotBlank(message = "Room id must not be blank")
+  @UUID(message = "Room id has to be a valid UUID string")
+  private String roomId;
+
   @NotBlank(message = "First name must not be blank")
   @Size(min = 2, max = 40, message = "First name must be between 2 and 40 characters long")
   @Schema(example = "Dimcho")

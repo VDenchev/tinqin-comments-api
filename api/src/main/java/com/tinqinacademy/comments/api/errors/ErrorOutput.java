@@ -1,5 +1,6 @@
 package com.tinqinacademy.comments.api.errors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tinqinacademy.comments.api.base.OperationOutput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorOutput implements OperationOutput {
 
   private List<Error> errors;
