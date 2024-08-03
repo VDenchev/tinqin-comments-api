@@ -1,7 +1,6 @@
 package com.tinqinacademy.comments.api.operations.updatecomment.output;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.models.output.CommentOutput;
 import lombok.AllArgsConstructor;
