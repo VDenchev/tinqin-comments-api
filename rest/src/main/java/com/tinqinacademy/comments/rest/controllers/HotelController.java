@@ -7,6 +7,7 @@ import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInpu
 import com.tinqinacademy.comments.api.operations.addcomment.operation.AddCommentOperation;
 import com.tinqinacademy.comments.api.operations.addcomment.output.AddCommentOutput;
 import com.tinqinacademy.comments.api.operations.getcomments.input.GetCommentsInput;
+import com.tinqinacademy.comments.api.operations.getcomments.operation.GetCommentsOperation;
 import com.tinqinacademy.comments.api.operations.getcomments.output.GetCommentsOutput;
 import com.tinqinacademy.comments.api.operations.updatecomment.input.UpdateCommentInput;
 import com.tinqinacademy.comments.api.operations.updatecomment.operation.UpdateCommentOperation;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.tinqinacademy.comments.api.RestApiRoutes.CREATE_COMMENT;
@@ -35,6 +37,7 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT;
 public class HotelController extends BaseController {
 
   private final HotelService hotelService;
+  private final GetCommentsOperation getCommentsOperation;
   private final AddCommentOperation addCommentOperation;
   private final UpdateCommentOperation updateCommentOperation;
 
@@ -50,10 +53,19 @@ public class HotelController extends BaseController {
       )
   })
   @GetMapping(GET_COMMENTS)
-  public ResponseEntity<GetCommentsOutput> getComments(@PathVariable(name = "roomId") GetCommentsInput input) {
-    GetCommentsOutput output = hotelService.getAllCommentsByRoom(input);
+  public ResponseEntity<OperationOutput> getComments(
+      @PathVariable(name = "roomId") String roomId,
+      @RequestParam(required = false) Integer pageNumber,
+      @RequestParam(required = false) Integer pageSize
+  ) {
+    GetCommentsInput input = GetCommentsInput.builder()
+        .roomId(roomId)
+        .pageNumber(pageNumber)
+        .pageSize(pageSize)
+        .build();
+    Either<ErrorOutput, GetCommentsOutput> output = getCommentsOperation.process(input);
 
-    return new ResponseEntity<>(output, HttpStatus.OK);
+    return createResponse(output, HttpStatus.OK);
   }
 
 

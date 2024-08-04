@@ -2,6 +2,7 @@ package com.tinqinacademy.comments.api.operations.getcomments.input;
 
 import com.tinqinacademy.comments.api.base.OperationInput;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,4 +22,10 @@ public class GetCommentsInput implements OperationInput {
   @Schema(example = "Room UUID")
   @UUID(message = "Room id has to be a valid UUID string")
   private String roomId;
+
+  @PositiveOrZero(message = "The page cannot be a negative number")
+  private Integer pageNumber;
+
+  @PositiveOrZero(message = "The page size cannot be a negative number")
+  private Integer pageSize;
 }

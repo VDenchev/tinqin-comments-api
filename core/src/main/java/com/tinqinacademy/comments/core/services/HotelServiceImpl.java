@@ -33,7 +33,7 @@ public class HotelServiceImpl implements HotelService {
         .lastName("Norris")
         .content("Veri gid hotel 10/10, would recommend!")
         .publishDate(LocalDateTime.now())
-        .lastUpdateDate(LocalDateTime.now())
+        .lastEditedDate(LocalDateTime.now())
         .build();
 
     comments.add(comment);
@@ -43,7 +43,6 @@ public class HotelServiceImpl implements HotelService {
     comments.add(comment);
 
     GetCommentsOutput output = GetCommentsOutput.builder()
-        .comments(comments)
         .build();
 
     log.info("End getAllCommentsByRoom output: {}", output.toString());
