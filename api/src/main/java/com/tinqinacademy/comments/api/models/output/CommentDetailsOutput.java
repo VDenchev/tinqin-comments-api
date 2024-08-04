@@ -29,5 +29,7 @@ public class CommentDetailsOutput {
   @Schema(example = "2024-07-12T08:47:49.450Z")
   private LocalDateTime publishDate;
   @Schema(example = "2024-07-12T08:47:49.450Z")
-  private LocalDateTime lastUpdateDate;
+  private LocalDateTime lastEditedDate;
+  @Schema(example = "User id")
+  private String lastEditedBy;
 }
