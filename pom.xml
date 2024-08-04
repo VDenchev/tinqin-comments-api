@@ -8,7 +8,7 @@
         <version>3.3.1</version>
     </parent>
 
-    <groupId>com.tinqinacademy</groupId>
+    <groupId>com.tinqinacademy.comments</groupId>
     <artifactId>comments</artifactId>
     <version>${revision}</version>
     <name>comments</name>
