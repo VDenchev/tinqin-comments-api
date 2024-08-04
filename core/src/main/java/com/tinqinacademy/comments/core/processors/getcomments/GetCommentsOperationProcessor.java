@@ -88,7 +88,7 @@ public class GetCommentsOperationProcessor extends BaseOperationProcessor implem
   }
 
   private void validatePageNumber(Integer pageNumber, Page<Comment> result) {
-    if (pageNumber >= result.getTotalPages()) {
+    if (pageNumber != 0 && pageNumber >= result.getTotalPages()) {
       throw new InvalidPageNumberException("Page number exceeds the total number of pages");
     }
   }
