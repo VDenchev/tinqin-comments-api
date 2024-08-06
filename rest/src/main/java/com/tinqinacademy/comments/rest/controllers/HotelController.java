@@ -1,7 +1,6 @@
 package com.tinqinacademy.comments.rest.controllers;
 
 import com.tinqinacademy.comments.api.base.OperationOutput;
-import com.tinqinacademy.comments.api.contracts.HotelService;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
 import com.tinqinacademy.comments.api.operations.addcomment.operation.AddCommentOperation;
@@ -36,7 +35,6 @@ import static com.tinqinacademy.comments.api.RestApiRoutes.UPDATE_COMMENT;
 @RequiredArgsConstructor
 public class HotelController extends BaseController {
 
-  private final HotelService hotelService;
   private final GetCommentsOperation getCommentsOperation;
   private final AddCommentOperation addCommentOperation;
   private final UpdateCommentOperation updateCommentOperation;

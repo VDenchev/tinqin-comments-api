@@ -87,8 +87,11 @@ public class SystemController extends BaseController {
   })
   @DeleteMapping(DELETE_COMMENT)
   public ResponseEntity<OperationOutput> deleteComment(
-      @PathVariable(name = "commentId") DeleteCommentInput input
+      @PathVariable String commentId
   ) {
+    DeleteCommentInput input = DeleteCommentInput.builder()
+        .commentId(commentId)
+        .build();
     return deleteCommentOperation.process(input)
         .fold(
             errorOutput -> new ResponseEntity<>(errorOutput, errorOutput.getStatusCode()),
