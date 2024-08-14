@@ -1,7 +1,7 @@
 package com.tinqinacademy.comments.api.errors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tinqinacademy.comments.api.base.OperationOutput;
+import com.tinqinacademy.comments.api.base.Output;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ErrorOutput implements OperationOutput {
+public class ErrorOutput implements Output {
 
   private List<Error> errors;
   private HttpStatusCode statusCode;

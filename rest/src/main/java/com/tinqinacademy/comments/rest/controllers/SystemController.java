@@ -1,9 +1,10 @@
 package com.tinqinacademy.comments.rest.controllers;
 
-import com.tinqinacademy.comments.api.base.OperationOutput;
+import com.tinqinacademy.comments.api.base.Output;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.operations.deletecomment.input.DeleteCommentInput;
 import com.tinqinacademy.comments.api.operations.deletecomment.operation.DeleteCommentOperation;
+import com.tinqinacademy.comments.api.operations.deletecomment.output.DeleteCommentOutput;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.input.UpdateCommentByAdminInput;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.operation.UpdateCommentByAdminOperation;
 import com.tinqinacademy.comments.api.operations.updatecommentbyadmin.output.UpdateCommentByAdminOutput;
@@ -55,7 +56,7 @@ public class SystemController extends BaseController {
       )
   })
   @PutMapping(UPDATE_COMMENT_BY_ADMIN)
-  public ResponseEntity<OperationOutput> updateComment(
+  public ResponseEntity<Output> updateComment(
       @PathVariable String commentId,
       @RequestBody UpdateCommentByAdminInput input
   ) {
@@ -86,16 +87,14 @@ public class SystemController extends BaseController {
       )
   })
   @DeleteMapping(DELETE_COMMENT)
-  public ResponseEntity<OperationOutput> deleteComment(
+  public ResponseEntity<Output> deleteComment(
       @PathVariable String commentId
   ) {
     DeleteCommentInput input = DeleteCommentInput.builder()
         .commentId(commentId)
         .build();
-    return deleteCommentOperation.process(input)
-        .fold(
-            errorOutput -> new ResponseEntity<>(errorOutput, errorOutput.getStatusCode()),
-            operationOutput -> new ResponseEntity<>(operationOutput, HttpStatus.OK)
-        );
+    Either<ErrorOutput, DeleteCommentOutput> output = deleteCommentOperation.process(input);
+
+    return createResponse(output, HttpStatus.OK);
   }
 }
