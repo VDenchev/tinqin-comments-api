@@ -1,4 +1,4 @@
 package com.tinqinacademy.comments.api.base;
 
-public interface OperationOutput {
+public interface OperationOutput extends Output {
 }

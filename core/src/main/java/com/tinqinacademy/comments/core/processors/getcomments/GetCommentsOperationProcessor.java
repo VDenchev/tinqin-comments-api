@@ -1,6 +1,6 @@
 package com.tinqinacademy.comments.core.processors.getcomments;
 
-import com.tinqinacademy.comments.api.base.BaseOperationProcessor;
+import com.tinqinacademy.comments.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.exceptions.InvalidPageNumberException;
 import com.tinqinacademy.comments.api.models.output.CommentDetailsOutput;

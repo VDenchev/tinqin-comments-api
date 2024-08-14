@@ -1,5 +1,6 @@
-package com.tinqinacademy.comments.api.base;
+package com.tinqinacademy.comments.core.processors.base;
 
+import com.tinqinacademy.comments.api.base.OperationInput;
 import com.tinqinacademy.comments.api.errors.Error;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import io.vavr.API;

@@ -1,6 +1,6 @@
 package com.tinqinacademy.comments.rest.controllers;
 
-import com.tinqinacademy.comments.api.base.OperationOutput;
+import com.tinqinacademy.comments.api.base.Output;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;
 import com.tinqinacademy.comments.api.operations.addcomment.operation.AddCommentOperation;
@@ -51,7 +51,7 @@ public class HotelController extends BaseController {
       )
   })
   @GetMapping(GET_COMMENTS)
-  public ResponseEntity<OperationOutput> getComments(
+  public ResponseEntity<Output> getComments(
       @PathVariable(name = "roomId") String roomId,
       @RequestParam(required = false) Integer pageNumber,
       @RequestParam(required = false) Integer pageSize
@@ -83,7 +83,7 @@ public class HotelController extends BaseController {
       )
   })
   @PostMapping(CREATE_COMMENT)
-  public ResponseEntity<OperationOutput> addComment(
+  public ResponseEntity<Output> addComment(
       @PathVariable String roomId,
       @RequestBody AddCommentInput input
   ) {
@@ -117,7 +117,7 @@ public class HotelController extends BaseController {
       )
   })
   @PatchMapping(UPDATE_COMMENT)
-  public ResponseEntity<OperationOutput> updateComment(
+  public ResponseEntity<Output> updateComment(
       @PathVariable String commentId,
       @RequestBody UpdateCommentInput input
   ) {
