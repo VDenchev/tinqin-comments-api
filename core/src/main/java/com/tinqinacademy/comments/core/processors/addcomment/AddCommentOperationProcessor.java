@@ -1,6 +1,6 @@
 package com.tinqinacademy.comments.core.processors.addcomment;
 
-import com.tinqinacademy.comments.api.base.BaseOperationProcessor;
+import com.tinqinacademy.comments.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.models.output.CommentOutput;
 import com.tinqinacademy.comments.api.operations.addcomment.input.AddCommentInput;

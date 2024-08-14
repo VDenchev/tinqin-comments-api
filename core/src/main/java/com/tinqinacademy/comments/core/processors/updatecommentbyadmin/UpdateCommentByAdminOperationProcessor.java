@@ -1,6 +1,6 @@
 package com.tinqinacademy.comments.core.processors.updatecommentbyadmin;
 
-import com.tinqinacademy.comments.api.base.BaseOperationProcessor;
+import com.tinqinacademy.comments.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.comments.api.errors.ErrorOutput;
 import com.tinqinacademy.comments.api.exceptions.EntityNotFoundException;
 import com.tinqinacademy.comments.api.models.output.CommentOutput;
