@@ -24,7 +24,7 @@ public class UpdateCommentInput implements OperationInput {
   private String commentId;
 
   @NotBlank
-  @Size(max = 10000)
+  @Size(max = 1_000, message = "Content must be a maximum of 1000 character long")
   @Schema(example = "I changed my mind. This hotel is trash")
   private String content;
 }

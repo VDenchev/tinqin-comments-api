@@ -26,7 +26,7 @@ public class UpdateCommentByAdminInput implements OperationInput {
   private String commentId;
 
   @NotBlank(message = "Room number must not be blank")
-  private String roomNumber;
+  private String roomNo;
 
   @NotBlank(message = "Room id must not be blank")
   @UUID(message = "Room id has to be a valid UUID string")
@@ -39,11 +39,11 @@ public class UpdateCommentByAdminInput implements OperationInput {
 
   @NotBlank(message = "Last name must not be blank")
   @Size(min = 2, max = 40, message = "First name must be between 2 and 40 characters long")
-  @Schema(example = "Dimcho")
+  @Schema(example = "Dimchov")
   private String lastName;
 
   @NotBlank(message = "Content must not be blank")
-  @Size(max = 10000, message = "Content must be a maximum of 10000 character long")
-  @Schema(example = "Lmao")
+  @Size(max = 1_000, message = "Content must be a maximum of 1000 character long")
+  @Schema(example = "*Redacted by admin*")
   private String content;
 }

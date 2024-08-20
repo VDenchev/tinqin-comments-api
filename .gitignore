@@ -31,3 +31,4 @@ build/
 
 .flattened-pom.xml
 .mvn
+.env
