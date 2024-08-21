@@ -22,15 +22,17 @@ import org.hibernate.validator.constraints.UUID;
 public class UpdateCommentByAdminInput implements OperationInput {
 
   @JsonIgnore
+  @NotBlank(message = "Comment id must not be blank")
   @UUID(message = "Comment id has to be a valid UUID string")
   private String commentId;
-
-  @NotBlank(message = "Room number must not be blank")
-  private String roomNo;
 
   @NotBlank(message = "Room id must not be blank")
   @UUID(message = "Room id has to be a valid UUID string")
   private String roomId;
+
+  @NotBlank(message = "Admin user id must not be blank")
+  @UUID(message = "Admin user id has to be a valid UUID string")
+  private String adminId;
 
   @NotBlank(message = "First name must not be blank")
   @Size(min = 2, max = 40, message = "First name must be between 2 and 40 characters long")

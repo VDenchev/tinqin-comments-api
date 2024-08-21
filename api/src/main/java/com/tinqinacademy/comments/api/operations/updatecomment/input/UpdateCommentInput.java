@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UUID;
 
 @Getter
 @Setter
@@ -21,9 +22,15 @@ import lombok.ToString;
 public class UpdateCommentInput implements OperationInput {
 
   @JsonIgnore
+  @UUID(message = "Comment id has to be a valid UUID string")
+  @NotBlank(message = "Commend id cannot be blank")
   private String commentId;
 
-  @NotBlank
+  @UUID(message = "User id has to be a valid UUID string")
+  @NotBlank(message = "User id cannot be blank")
+  private String userId;
+
+  @NotBlank(message = "Content cannot be blank")
   @Size(max = 1_000, message = "Content must be a maximum of 1000 character long")
   @Schema(example = "I changed my mind. This hotel is trash")
   private String content;

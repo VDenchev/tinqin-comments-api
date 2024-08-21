@@ -17,6 +17,8 @@ public class AddCommentInputToComment extends BaseConverter<AddCommentInput, Com
         .firstName(source.getFirstName())
         .lastName(source.getLastName())
         .content(source.getContent())
+        .lastEditedBy(UUID.fromString(source.getUserId()))
+        .publishedBy(UUID.fromString(source.getUserId()))
         .build();
   }
 }
