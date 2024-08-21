@@ -18,6 +18,7 @@ public class CommentToCommentDetailsOutput extends BaseConverter<Comment, Commen
         .publishDate(source.getPublishDate())
         .lastEditedDate(source.getLastEditedDate())
         .lastEditedBy(source.getLastEditedBy().toString())
+        .publishedBy(source.getPublishedBy().toString())
         .build();
   }
 }

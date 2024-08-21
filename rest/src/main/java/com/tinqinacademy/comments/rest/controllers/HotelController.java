@@ -106,14 +106,6 @@ public class HotelController extends BaseController {
       @ApiResponse(
           description = "Validation error",
           responseCode = "400"
-      ),
-      @ApiResponse(
-          description = "You don't have permission",
-          responseCode = "403"
-      ),
-      @ApiResponse(
-          description = "You are not authorized",
-          responseCode = "401"
       )
   })
   @PatchMapping(UPDATE_COMMENT)

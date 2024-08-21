@@ -32,7 +32,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenValidInput_shouldRespondWithOkAndCommentId() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("Dimov")
         .content("Content")
@@ -52,7 +51,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenBlankRoomNumber_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("")
         .firstName("Pencho")
         .lastName("Dimov")
         .content("Content")
@@ -89,7 +87,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenFirstNameTooLong_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("PenchoPenchoPenchoPenchoPenchoPenchoPencho")
         .lastName("Dimov")
         .content("Content")
@@ -108,7 +105,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenFirstNameTooShort_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("P")
         .lastName("Dimov")
         .content("Content")
@@ -127,7 +123,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenBlankFirstName_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("")
         .lastName("Dimov")
         .content("Content")
@@ -146,7 +141,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenNullFirstName_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .lastName("Dimov")
         .content("Content")
         .build();
@@ -164,7 +158,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenLastNameTooLong_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("DimovDimovDimovDimovDimovDimovDimovDimovDimov")
         .content("Content")
@@ -183,7 +176,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenLastNameTooShort_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("D")
         .content("Content")
@@ -202,7 +194,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenBlankLastName_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("")
         .content("Content")
@@ -221,7 +212,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenNullLastName_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .content("Content")
         .build();
@@ -239,7 +229,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenBlankContent_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("Dimov")
         .content("")
@@ -258,7 +247,6 @@ class SystemControllerTest {
   @Test
   void updateCommentByAdmin_whenNullContent_shouldRespondWithUnprocessableEntityAndErrorResult() throws Exception {
     UpdateCommentByAdminInput input = UpdateCommentByAdminInput.builder()
-        .roomNo("100")
         .firstName("Pencho")
         .lastName("Dimov")
         .build();

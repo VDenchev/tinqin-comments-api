@@ -45,14 +45,6 @@ public class SystemController extends BaseController {
       @ApiResponse(
           description = "Validation error",
           responseCode = "400"
-      ),
-      @ApiResponse(
-          description = "You don't have permission",
-          responseCode = "403"
-      ),
-      @ApiResponse(
-          description = "You are not authorized",
-          responseCode = "401"
       )
   })
   @PutMapping(UPDATE_COMMENT_BY_ADMIN)
@@ -76,14 +68,6 @@ public class SystemController extends BaseController {
       @ApiResponse(
           description = "Comment with provided id does not exist",
           responseCode = "404"
-      ),
-      @ApiResponse(
-          description = "You don't have permission",
-          responseCode = "403"
-      ),
-      @ApiResponse(
-          description = "You are not authorized",
-          responseCode = "401"
       )
   })
   @DeleteMapping(DELETE_COMMENT)

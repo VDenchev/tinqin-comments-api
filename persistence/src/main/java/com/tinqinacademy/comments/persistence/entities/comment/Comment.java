@@ -41,6 +41,9 @@ public class Comment extends BaseEntity {
   @Column(name = "last_edited_by", nullable = false)
   private UUID lastEditedBy;
 
+  @Column(name = "published_by", nullable = false)
+  private UUID publishedBy;
+
   @CreationTimestamp
   private LocalDateTime publishDate;
 
