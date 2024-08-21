@@ -1,7 +1,5 @@
 package com.tinqinacademy.comments.api.operations.getcomments.output;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.tinqinacademy.comments.api.base.OperationOutput;
 import com.tinqinacademy.comments.api.models.output.CommentDetailsOutput;
 import lombok.AllArgsConstructor;
@@ -10,7 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 
 @Getter
@@ -21,6 +20,11 @@ import org.springframework.data.domain.Page;
 @ToString
 public class GetCommentsOutput implements OperationOutput {
 
-  @JsonUnwrapped
-  private Page<CommentDetailsOutput> page;
+  private List<CommentDetailsOutput> comments;
+  private Integer pageNumber;
+  private Integer totalPages;
+  private Long totalElements;
+  private Integer pageSize;
+  private Integer numberOfElements;
+  private Boolean empty;
 }

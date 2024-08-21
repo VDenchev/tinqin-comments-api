@@ -15,7 +15,6 @@ import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -55,12 +54,12 @@ public class GetCommentsOperationProcessor extends BaseOperationProcessor implem
                   UUID roomId = UUID.fromString(validInput.getRoomId());
 
                   Pageable pageable = PageRequest.of(pageNumber, pageSize);
-                  Page<Comment> result = commentRepository.findAllByRoomId(roomId, pageable);
+                  Page<Comment> commentsPage = commentRepository.findAllByRoomId(roomId, pageable);
 
-                  validatePageNumber(pageNumber, result);
+                  validatePageNumber(pageNumber, commentsPage);
 
-                  Page<CommentDetailsOutput> outputPage = convertToPageOutput(result);
-                  GetCommentsOutput output = createOutput(outputPage);
+                  List<CommentDetailsOutput> commentDetailsList = convertToPageOutput(commentsPage);
+                  GetCommentsOutput output = createOutput(commentDetailsList, commentsPage);
                   log.info("End getComments input: {}", output);
                   return output;
                 })
@@ -88,21 +87,28 @@ public class GetCommentsOperationProcessor extends BaseOperationProcessor implem
   }
 
   private void validatePageNumber(Integer pageNumber, Page<Comment> result) {
+    //Allow empty first page
     if (pageNumber != 0 && pageNumber >= result.getTotalPages()) {
       throw new InvalidPageNumberException("Page number exceeds the total number of pages");
     }
   }
 
-  private Page<CommentDetailsOutput> convertToPageOutput(Page<Comment> commentPage) {
+  private List<CommentDetailsOutput> convertToPageOutput(Page<Comment> commentPage) {
     List<CommentDetailsOutput> outputList = commentPage.stream()
         .map(c -> conversionService.convert(c, CommentDetailsOutput.class))
         .toList();
-    return new PageImpl<>(outputList, commentPage.getPageable(), commentPage.getTotalElements());
+    return outputList;
   }
 
-  private GetCommentsOutput createOutput(Page<CommentDetailsOutput> outputPage) {
+  private GetCommentsOutput createOutput(List<CommentDetailsOutput> comments, Page<Comment> page) {
     return GetCommentsOutput.builder()
-        .page(outputPage)
+        .comments(comments)
+        .pageNumber(page.getNumber())
+        .totalPages(page.getTotalPages())
+        .totalElements(page.getTotalElements())
+        .pageSize(page.getSize())
+        .numberOfElements(page.getNumberOfElements())
+        .empty(page.isEmpty())
         .build();
   }
 }
