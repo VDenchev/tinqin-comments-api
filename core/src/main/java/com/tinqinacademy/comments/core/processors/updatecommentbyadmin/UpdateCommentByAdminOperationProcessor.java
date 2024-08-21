@@ -13,7 +13,6 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -58,19 +57,19 @@ public class UpdateCommentByAdminOperationProcessor extends BaseOperationProcess
                 .toEither()
                 .mapLeft(t -> Match(t).of(
                     customStatusCase(t, EntityNotFoundException.class, HttpStatus.NOT_FOUND),
-                    customStatusCase(t, ConversionException.class, HttpStatus.UNPROCESSABLE_ENTITY),
+                    customStatusCase(t, IllegalArgumentException.class, HttpStatus.UNPROCESSABLE_ENTITY),
                     defaultCase(t)
                 ))
         );
   }
 
   private Comment buildUpdatedComment(UpdateCommentByAdminInput validInput, Comment comment) {
-    //TODO: Update lastEditedBy field
     return comment.toBuilder()
         .content(validInput.getContent())
         .firstName(validInput.getFirstName())
         .lastName(validInput.getLastName())
         .roomId(UUID.fromString(validInput.getRoomId()))
+        .lastEditedBy(UUID.fromString(validInput.getAdminId()))
         .build();
   }
 

@@ -43,8 +43,9 @@ public class UpdateCommentOperationProcessor extends BaseOperationProcessor impl
             Try.of(() -> {
                   log.info("Start updateComment input: {}", validInput);
 
+                  UUID userId = UUID.fromString(validInput.getUserId());
                   UUID commentId = UUID.fromString(validInput.getCommentId());
-                  Comment oldComment = commentRepository.findById(commentId)
+                  Comment oldComment = commentRepository.findByIdAndPublishedBy(commentId, userId)
                       .orElseThrow(() -> new EntityNotFoundException("Comment", commentId));
 
                   Comment commentToUpdate = buildUpdatedComment(validInput, oldComment);
@@ -58,16 +59,16 @@ public class UpdateCommentOperationProcessor extends BaseOperationProcessor impl
                 .toEither()
                 .mapLeft(t -> Match(t).of(
                     customStatusCase(t, EntityNotFoundException.class, HttpStatus.NOT_FOUND),
-                    customStatusCase(t, ConversionException.class, HttpStatus.UNPROCESSABLE_ENTITY),
+                    customStatusCase(t, IllegalArgumentException.class, HttpStatus.UNPROCESSABLE_ENTITY),
                     defaultCase(t)
                 ))
         );
   }
 
   private Comment buildUpdatedComment(UpdateCommentInput validInput, Comment comment) {
-    //TODO: Update lastEditedBy field
     return comment.toBuilder()
         .content(validInput.getContent())
+        .lastEditedBy(UUID.fromString(validInput.getUserId()))
         .build();
   }
 
