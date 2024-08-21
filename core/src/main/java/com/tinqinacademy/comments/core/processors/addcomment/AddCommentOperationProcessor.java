@@ -17,8 +17,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 import static io.vavr.API.Match;
 
 
@@ -49,7 +47,7 @@ public class AddCommentOperationProcessor extends BaseOperationProcessor impleme
 
                   AddCommentOutput output = createOutput(savedComment);
                   log.info("End addComment output: {}", output);
-                  return  output;
+                  return output;
                 })
                 .toEither()
                 .mapLeft(t -> Match(t).of(
@@ -70,7 +68,7 @@ public class AddCommentOperationProcessor extends BaseOperationProcessor impleme
 
   private Comment convertInputToComment(AddCommentInput validInput) {
     Comment comment = conversionService.convert(validInput, Comment.class);
-    comment.setLastEditedBy(UUID.randomUUID());
+
     return comment;
   }
 }
