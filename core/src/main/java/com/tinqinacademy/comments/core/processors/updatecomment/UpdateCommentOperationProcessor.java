@@ -13,10 +13,10 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -37,6 +37,7 @@ public class UpdateCommentOperationProcessor extends BaseOperationProcessor impl
   }
 
   @Override
+  @Transactional
   public Either<ErrorOutput, UpdateCommentOutput> process(UpdateCommentInput input) {
     return validateInput(input)
         .flatMap(validInput ->
