@@ -40,7 +40,7 @@ public class UpdateCommentByAdminInput implements OperationInput {
   private String firstName;
 
   @NotBlank(message = "Last name must not be blank")
-  @Size(min = 2, max = 40, message = "First name must be between 2 and 40 characters long")
+  @Size(min = 2, max = 40, message = "Last name must be between 2 and 40 characters long")
   @Schema(example = "Dimchov")
   private String lastName;
 
