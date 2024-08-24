@@ -79,7 +79,7 @@ public class HotelController extends BaseController {
       ),
       @ApiResponse(
           description = "Validation error",
-          responseCode = "400"
+          responseCode = "422"
       )
   })
   @PostMapping(CREATE_COMMENT)
@@ -105,7 +105,7 @@ public class HotelController extends BaseController {
       ),
       @ApiResponse(
           description = "Validation error",
-          responseCode = "400"
+          responseCode = "422"
       )
   })
   @PatchMapping(UPDATE_COMMENT)
