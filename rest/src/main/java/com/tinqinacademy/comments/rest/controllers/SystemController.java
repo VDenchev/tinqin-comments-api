@@ -44,7 +44,7 @@ public class SystemController extends BaseController {
       ),
       @ApiResponse(
           description = "Validation error",
-          responseCode = "400"
+          responseCode = "422"
       )
   })
   @PutMapping(UPDATE_COMMENT_BY_ADMIN)
@@ -63,7 +63,7 @@ public class SystemController extends BaseController {
   @ApiResponses(value = {
       @ApiResponse(
           description = "Successfully deleted comment",
-          responseCode = "204"
+          responseCode = "200"
       ),
       @ApiResponse(
           description = "Comment with provided id does not exist",
